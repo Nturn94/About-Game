@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embershard Quest</title>
+    <meta
+      name="description"
+      content="Embershard Quest is a fantasy idle battler built around party growth, hero recruiting, and long-form progression."
+    />
+    <style>
+      :root {
+        --bg: #09101a;
+        --panel: rgba(12, 19, 32, 0.88);
+        --panel-strong: rgba(17, 29, 47, 0.95);
+        --line: rgba(232, 170, 71, 0.65);
+        --text: #f5efe6;
+        --muted: #c8d3e6;
+        --gold: #f0a642;
+        --gold-soft: #f3c97a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--text);
+        background:
+          linear-gradient(rgba(5, 9, 18, 0.68), rgba(5, 9, 18, 0.92)),
+          url("./images/bg_emberwood.jpg") center / cover fixed no-repeat;
+      }
+
+      .page {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-card {
+        padding: 28px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(240, 166, 66, 0.14);
+        border: 1px solid rgba(240, 166, 66, 0.45);
+        color: var(--gold-soft);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        line-height: 1.05;
+      }
+
+      h1 {
+        font-size: clamp(42px, 7vw, 76px);
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 14px;
+      }
+
+      .lead,
+      .card p,
+      .card li {
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 17px;
+      }
+
+      .lead {
+        max-width: 60ch;
+        margin: 0 0 18px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--panel-strong);
+        border: 1px solid rgba(240, 166, 66, 0.35);
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .art-card {
+        padding: 18px;
+      }
+
+      .art-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .sprite-box {
+        border-radius: 18px;
+        background: rgba(16, 24, 36, 0.84);
+        border: 1px solid rgba(240, 166, 66, 0.14);
+        padding: 10px;
+        min-height: 140px;
+        display: grid;
+        place-items: center;
+      }
+
+      .sprite-box img {
+        width: 100%;
+        max-width: 120px;
+        height: 120px;
+        object-fit: contain;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .content-card {
+        padding: 22px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .showcase {
+        background:
+          linear-gradient(rgba(10, 16, 24, 0.84), rgba(10, 16, 24, 0.94)),
+          url("./images/bg_observatory.jpg") center / cover no-repeat;
+      }
+
+      .footer {
+        margin-top: 24px;
+        text-align: center;
+        color: rgba(245, 239, 230, 0.7);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .page {
+          padding: 20px 14px 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="card hero-card">
+          <div class="eyebrow">Fantasy Idle Battler</div>
+          <h1>Embershard Quest</h1>
+          <p class="lead">
+            Embershard Quest is a mobile fantasy battler built around party
+            growth, hero recruiting, gold-driven upgrades, and long-form
+            progression. Build a stronger roster, push through tougher stages,
+            and turn a struggling party into a relentless force.
+          </p>
+          <div class="pill-row">
+            <div class="pill">Recruit Heroes</div>
+            <div class="pill">Upgrade Mid-Battle</div>
+            <div class="pill">Idle DPS Growth</div>
+            <div class="pill">Boss Stages</div>
+          </div>
+        </div>
+
+        <aside class="card art-card">
+          <div class="eyebrow">Featured Units</div>
+          <div class="art-grid">
+            <div class="sprite-box">
+              <img src="./images/hero_valen_idle.png" alt="Valen" />
+            </div>
+            <div class="sprite-box">
+              <img src="./images/hero_vesper_idle.png" alt="Vesper" />
+            </div>
+            <div class="sprite-box">
+              <img src="./images/enemy_forest_wolf.png" alt="Forest Wolf" />
+            </div>
+            <div class="sprite-box">
+              <img src="./images/enemy_pyre_priest.png" alt="Pyre Priest" />
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="layout">
+        <article class="card content-card">
+          <h2>What The Game Is</h2>
+          <p>
+            Battles are designed around steady gold gain, active skill timing,
+            party-building, and permanent upgrades that carry across the
+            campaign. Players recruit heroes, strengthen their core lineup, and
+            push into harder stages as their roster grows.
+          </p>
+        </article>
+
+        <article class="card content-card">
+          <h2>Core Features</h2>
+          <ul>
+            <li>Fantasy idle battler combat built for mobile</li>
+            <li>Hero recruiting through the Codex</li>
+            <li>Permanent account-wide upgrades</li>
+            <li>Battle actions like Focus Burst, Flask, stun, and debuffs</li>
+            <li>Gold-based progression and long-form stage pushing</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="layout">
+        <article class="card content-card showcase">
+          <h2>The Journey</h2>
+          <p>
+            Starting in Emberwood and pushing deeper into a world shaped by the
+            Calamity, players build momentum one battle at a time. Every new
+            recruit, every upgrade, and every clear feeds into a stronger,
+            faster, more dangerous party.
+          </p>
+        </article>
+
+        <article class="card content-card">
+          <h2>Built For Progression</h2>
+          <p>
+            Embershard Quest is focused on the feeling of growth. More gold
+            means more upgrades. More heroes means more team strength. Longer
+            fights create space for better decisions, stronger builds, and a
+            more satisfying climb through the campaign.
+          </p>
+        </article>
+      </section>
+
+      <p class="footer">Embershard Quest</p>
+    </main>
+  </body>
+</html>
