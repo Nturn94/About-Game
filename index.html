@@ -41,6 +41,50 @@
         padding: 32px 20px 48px;
       }
 
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 24px;
+        padding: 18px 22px;
+      }
+
+      .brand-mark {
+        color: var(--text);
+        text-decoration: none;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav-link {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(240, 166, 66, 0.28);
+        color: var(--text);
+        text-decoration: none;
+        background: rgba(17, 29, 47, 0.82);
+        transition:
+          transform 140ms ease,
+          border-color 140ms ease,
+          background 140ms ease;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(240, 166, 66, 0.58);
+        background: rgba(24, 39, 60, 0.95);
+      }
+
       .hero {
         display: grid;
         grid-template-columns: 1.2fr 0.8fr;
@@ -175,6 +219,22 @@
         font-size: 14px;
       }
 
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 18px;
+        color: var(--gold-soft);
+        text-decoration: none;
+        font-weight: bold;
+        letter-spacing: 0.03em;
+      }
+
+      .project-link:hover,
+      .project-link:focus-visible {
+        color: #ffd89d;
+      }
+
       @media (max-width: 860px) {
         .hero,
         .layout {
@@ -189,6 +249,14 @@
   </head>
   <body>
     <main class="page">
+      <nav class="card site-nav" aria-label="Site">
+        <a class="brand-mark" href="./index.html">Luminara Worlds</a>
+        <div class="nav-links">
+          <a class="nav-link" href="./index.html">Embershard Quest</a>
+          <a class="nav-link" href="./the-last-ember-kingdom.html">The Last Ember Kingdom</a>
+        </div>
+      </nav>
+
       <section class="hero">
         <div class="card hero-card">
           <div class="eyebrow">Fantasy Idle Battler</div>
@@ -205,6 +273,9 @@
             <div class="pill">Idle DPS Growth</div>
             <div class="pill">Boss Stages</div>
           </div>
+          <a class="project-link" href="./the-last-ember-kingdom.html">
+            Visit The Last Ember Kingdom
+          </a>
         </div>
 
         <aside class="card art-card">

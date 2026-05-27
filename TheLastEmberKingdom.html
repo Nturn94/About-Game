@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Last Ember Kingdom | Classic Action Adventure</title>
+    <meta
+      name="description"
+      content="The Last Ember Kingdom is a classic-inspired action adventure about dungeon crawling, sword combat, puzzle solving, and dangerous bosses on iPhone and iPad."
+    />
+    <style>
+      :root {
+        --bg: #071018;
+        --bg-soft: #102032;
+        --panel: rgba(10, 20, 33, 0.82);
+        --panel-strong: rgba(14, 26, 42, 0.94);
+        --line: rgba(136, 192, 255, 0.18);
+        --text: #eef4ff;
+        --muted: #b9c7dc;
+        --accent: #f27b2a;
+        --accent-soft: #ffbe73;
+        --ice: #84dbff;
+        --gold: #f5d27a;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        font-family:
+          "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(52, 98, 167, 0.32), transparent 32%),
+          radial-gradient(circle at 84% 16%, rgba(245, 210, 122, 0.12), transparent 20%),
+          linear-gradient(180deg, #050d15 0%, #0a1421 50%, #08111b 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(18px);
+        background: rgba(6, 13, 23, 0.78);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        object-fit: cover;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      .brand-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .brand strong {
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand span {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 700;
+        transition:
+          transform 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease,
+          color 0.18s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button-primary {
+        background: linear-gradient(135deg, var(--accent) 0%, #ffa347 100%);
+        color: white;
+        box-shadow: 0 14px 32px rgba(242, 123, 42, 0.28);
+      }
+
+      .button-secondary {
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 72px 0 48px;
+      }
+
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(38px);
+        opacity: 0.45;
+      }
+
+      .hero::before {
+        width: 280px;
+        height: 280px;
+        top: 24px;
+        left: -80px;
+        background: rgba(132, 219, 255, 0.24);
+      }
+
+      .hero::after {
+        width: 320px;
+        height: 320px;
+        right: -40px;
+        bottom: -60px;
+        background: rgba(242, 123, 42, 0.22);
+      }
+
+      .hero-grid {
+        position: relative;
+        display: grid;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(132, 219, 255, 0.16);
+        color: var(--ice);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.05;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(2.8rem, 7vw, 5.1rem);
+        letter-spacing: -0.05em;
+      }
+
+      .hero-copy p {
+        max-width: 620px;
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .stat {
+        padding: 16px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: var(--shadow);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .hero-shot {
+        overflow: hidden;
+        border-radius: 30px;
+        background: linear-gradient(180deg, #18253a 0%, #0a111d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+      }
+
+      .hero-artboard {
+        position: relative;
+        min-height: 520px;
+        padding: 32px;
+        background:
+          radial-gradient(circle at 25% 20%, rgba(132, 219, 255, 0.2), transparent 24%),
+          radial-gradient(circle at 78% 28%, rgba(242, 123, 42, 0.2), transparent 26%),
+          linear-gradient(180deg, rgba(8, 15, 28, 0.08), rgba(8, 15, 28, 0.72));
+      }
+
+      .hero-artboard::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 140px;
+        background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.3));
+      }
+
+      .hero-icon-badge {
+        position: absolute;
+        top: 22px;
+        left: 22px;
+        width: 88px;
+        height: 88px;
+        padding: 8px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-sprite {
+        position: absolute;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.45));
+      }
+
+      .hero-sprite-dragon {
+        top: 110px;
+        right: 18px;
+        width: min(66%, 390px);
+      }
+
+      .hero-sprite-hero {
+        left: 46px;
+        bottom: 24px;
+        width: min(30%, 160px);
+      }
+
+      .hero-sprite-crystal {
+        right: 44px;
+        bottom: 38px;
+        width: min(20%, 92px);
+      }
+
+      .hero-caption {
+        position: absolute;
+        left: 30px;
+        bottom: 26px;
+        z-index: 1;
+        max-width: 230px;
+        padding: 14px 16px;
+        border-radius: 20px;
+        background: rgba(7, 12, 24, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-caption strong {
+        display: block;
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero-caption span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .section {
+        padding: 30px 0;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .grid-two {
+        display: grid;
+        gap: 20px;
+      }
+
+      .grid-three {
+        display: grid;
+        gap: 20px;
+      }
+
+      .features,
+      .about {
+        padding: 28px;
+      }
+
+      .section-heading {
+        margin-bottom: 18px;
+      }
+
+      .section-heading p {
+        margin: 0 0 12px;
+        color: var(--ice);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .section-heading h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+      }
+
+      .section-heading .lead {
+        max-width: 720px;
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .feature-card {
+        padding: 22px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .feature-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .feature-card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .showcase {
+        display: grid;
+        gap: 20px;
+      }
+
+      .image-card {
+        overflow: hidden;
+        border-radius: 28px;
+        background: var(--panel-strong);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .image-card img,
+      .hero-shot img {
+        width: 100%;
+        height: auto;
+      }
+
+      .image-caption {
+        padding: 16px 18px 18px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .feature-image {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: contain;
+        padding: 24px;
+        background:
+          radial-gradient(circle at top, rgba(132, 219, 255, 0.14), transparent 36%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.18));
+        image-rendering: pixelated;
+      }
+
+      .asset-grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .asset-card {
+        padding: 24px;
+      }
+
+      .asset-figure {
+        display: grid;
+        place-items: center;
+        min-height: 200px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .asset-figure img {
+        max-height: 160px;
+        width: auto;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.4));
+      }
+
+      .asset-card h3 {
+        margin-top: 18px;
+        font-size: 1.15rem;
+      }
+
+      .asset-card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .cta {
+        padding: 30px;
+      }
+
+      .cta-box {
+        display: grid;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .cta-box p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .footer {
+        padding: 26px 0 50px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer a {
+        color: var(--gold);
+      }
+
+      @media (min-width: 860px) {
+        .hero-grid,
+        .grid-two,
+        .cta-box {
+          grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+        }
+
+        .grid-three {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .showcase {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .asset-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 759px) {
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .hero-artboard {
+          min-height: 420px;
+          padding: 24px;
+        }
+
+        .hero-sprite-dragon {
+          top: 116px;
+          right: 10px;
+          width: min(72%, 280px);
+        }
+
+        .hero-sprite-hero {
+          left: 26px;
+          width: 120px;
+        }
+
+        .hero-caption {
+          max-width: 180px;
+          left: 18px;
+          bottom: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <div class="brand">
+          <img class="brand-mark" src="./promo-images/icon.png" alt="The Last Ember Kingdom app icon" />
+          <div class="brand-copy">
+            <strong>The Last Ember Kingdom</strong>
+            <span>Classic-inspired action adventure for iPhone and iPad</span>
+          </div>
+        </div>
+        <a class="button button-primary" href="#cta">Enter The Kingdom</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="shell hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Action Adventure</div>
+            <h1>Explore a ruined kingdom where every room pushes back.</h1>
+            <p>
+              The Last Ember Kingdom is a classic-inspired top-down quest about
+              dungeon routes, sword combat, puzzle mechanics, keys, secrets, and
+              bosses lurking deeper in the dark.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#features">See Features</a>
+              <a class="button button-secondary" href="#gameplay">View Gameplay</a>
+            </div>
+            <div class="stats">
+              <div class="stat">
+                <strong>Close-Quarters Combat</strong>
+                <span>Fight through monsters with movement, timing, and clean attack windows.</span>
+              </div>
+              <div class="stat">
+                <strong>Puzzles & Keys</strong>
+                <span>Use dungeon objects, routes, and gated paths to keep progressing.</span>
+              </div>
+              <div class="stat">
+                <strong>Boss Pressure</strong>
+                <span>Face larger threats that turn each deeper section into a real test.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-shot">
+              <div class="hero-artboard">
+                <img class="hero-icon-badge" src="./promo-images/icon.png" alt="The Last Ember Kingdom icon" />
+
+                <div class="hero-caption">
+                  <strong>Australian Made</strong>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell grid-two">
+          <div class="panel about" id="gameplay">
+            <div class="section-heading">
+              <p>About The Game</p>
+              <h2>A classic-style quest with dungeons, danger, and momentum</h2>
+              <div class="lead">
+                The Last Ember Kingdom is built for players who love older
+                fantasy adventures with readable combat, dungeon progression,
+                environmental puzzles, and the satisfaction of finding the path
+                forward through a hostile map.
+              </div>
+            </div>
+            <p style="margin: 0; color: var(--muted); line-height: 1.8">
+              Push room by room through a kingdom in ruin, battling monsters,
+              unlocking routes, and uncovering what still burns beneath the
+              collapse. The focus is on action and exploration rather than idle
+              systems or heavy menu management.
+            </p>
+          </div>
+
+          <div class="image-card">
+            <img
+              class="feature-image"
+              src="./promo-images/dragon.png"
+              alt="Dragon enemy from The Last Ember Kingdom"
+            />
+            <div class="image-caption">
+              Deeper areas escalate from standard enemies into larger boss-style
+              threats that demand patience, spacing, and better reads.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="shell">
+          <div class="section-heading">
+            <p>Features</p>
+            <h2>What defines The Last Ember Kingdom</h2>
+            <div class="lead">
+              Combat, exploration, puzzle gating, and boss encounters all work
+              together to capture the feel of an older top-down adventure.
+            </div>
+          </div>
+          <div class="grid-three features">
+            <article class="feature-card">
+              <h3>Classic top-down combat</h3>
+              <p>
+                Move with intent, commit to your swings, and survive enemies that
+                punish careless spacing.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Dungeon puzzle flow</h3>
+              <p>
+                Keys, crystals, switches, and blocked routes make progression
+                feel like discovery instead of simple corridor clearing.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Memorable boss fights</h3>
+              <p>
+                Larger enemies break the pace in the best way, turning each new
+                encounter into a milestone.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell asset-grid">
+          <article class="panel asset-card">
+            <div class="asset-figure">
+              <img src="./promo-images/crystal.png" alt="Crystal environment sprite" />
+            </div>
+            <h3>Dungeon atmosphere</h3>
+            <p>
+              Environmental details help each room feel ancient and mysterious,
+              giving exploration more texture than a straight combat rush.
+            </p>
+          </article>
+          <article class="panel asset-card">
+            <div class="asset-figure">
+              <img src="./promo-images/boss-key.png" alt="Boss key pickup sprite" />
+            </div>
+            <h3>Meaningful progression</h3>
+            <p>
+              Key items turn the map into a chain of discoveries, gates, and
+              hard-earned breakthroughs that keep the adventure moving.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell showcase">
+          <div class="panel features">
+            <div class="section-heading">
+              <p>Why Play</p>
+              <h2>Made for players who miss older fantasy adventures</h2>
+            </div>
+            <p style="margin: 0; color: var(--muted); line-height: 1.8">
+              If you love sword-and-dungeon games with clear combat, locked
+              routes, strange ruins, and the constant pull of what might be in
+              the next room, this page is aiming at exactly that feeling.
+            </p>
+          </div>
+
+          <div class="panel features">
+            <div class="section-heading">
+              <p>World Hook</p>
+              <h2>The ember still burns somewhere below</h2>
+            </div>
+            <p style="margin: 0 0 20px; color: var(--muted); line-height: 1.8">
+              The kingdom is broken, the monsters have settled in, and the last
+              ember has become something worth chasing. Every locked path and
+              hostile chamber points toward what remains at the center.
+            </p>
+            <a class="button button-primary" href="#cta">Begin The Descent</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cta">
+        <div class="shell panel cta">
+          <div class="cta-box">
+            <div>
+              <div class="section-heading">
+                <p>Call To Action</p>
+                <h2>Ready to step into The Last Ember Kingdom?</h2>
+              </div>
+              <p>
+                Enter the ruins, fight through monsters, solve the rooms in
+                front of you, and keep pushing toward the ember at the heart of
+                the kingdom.
+              </p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center">
+              <a class="button button-primary" href="#top">Back To The Top</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell footer">
+      The Last Ember Kingdom is a classic-inspired fantasy action adventure
+      focused on exploration, combat, puzzles, and boss encounters.
+      <a href="#features">See the core features</a>.
+    </footer>
+  </body>
+</html>
